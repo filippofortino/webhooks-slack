@@ -199,5 +199,7 @@ function notifySlack(imageUrl, payload, location, action) {
       footer: `${action} by ${payload.Account.title} on ${payload.Player.title} from ${payload.Server.title} ${locationText}`,
       footer_icon: payload.Account.thumb
     }]
-  }, () => {});
+  }, function(err, response) {
+    console.log(response);
+  });
 }
