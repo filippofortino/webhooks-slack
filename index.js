@@ -13,7 +13,7 @@ const SEVEN_DAYS = 7 * 24 * 60 * 60; // in seconds
 //
 // setup
 
-const channel = process.env.SLACK_CHANNEL;
+const channelName = process.env.SLACK_CHANNEL;
 const appURL = process.env.APP_URL;
 const redis = new Redis(process.env.REDIS_URL);
 
@@ -187,7 +187,7 @@ function notifySlack(imageUrl, payload, location, action) {
   }
 
   slack.webhook({
-    channel,
+    channel: channelName,
     username: 'Plex',
     icon_emoji: ':plex:',
     attachments: [{
