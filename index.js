@@ -191,7 +191,7 @@ function notifySlack(imageUrl, payload, location, action) {
     username: 'Plex',
     icon_emoji: ':plex:',
     attachments: [{
-      fallback: formatTitle(payload.Metadata) + 'appena riprodotto',
+      fallback: formatTitle(payload.Metadata) + ' appena riprodotto',
       color: '#a67a2d',
       title: formatTitle(payload.Metadata),
       text: formatSubtitle(payload.Metadata),
