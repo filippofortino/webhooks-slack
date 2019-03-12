@@ -89,9 +89,9 @@ app.post('/', upload.single('thumb'), async (req, res, next) => {
     let action;
 
     if (payload.event === 'media.scrobble') {
-      action = 'played';
+      action = 'riprodotto';
     } else if (payload.rating > 0) {
-      action = 'rated ';
+      action = 'valutato ';
       for (var i = 0; i < payload.rating / 2; i++) {
         action += ':star:';
       }
@@ -183,7 +183,7 @@ function notifySlack(imageUrl, payload, location, action) {
 
   if (location) {
     const state = location.country_code === 'US' ? location.region_name : location.country_name;
-    locationText = `near ${location.city}, ${state}`;
+    locationText = `nei pressi di ${location.city}, ${state}`;
   }
 
   slack.webhook({
@@ -191,12 +191,12 @@ function notifySlack(imageUrl, payload, location, action) {
     username: 'Plex',
     icon_emoji: ':plex:',
     attachments: [{
-      fallback: 'Required plain-text summary of the attachment.',
+      fallback: formatTitle(payload.Metadata) + 'appena riprodotto',
       color: '#a67a2d',
       title: formatTitle(payload.Metadata),
       text: formatSubtitle(payload.Metadata),
       thumb_url: imageUrl,
-      footer: `${action} by ${payload.Account.title} on ${payload.Player.title} from ${payload.Server.title} ${locationText}`,
+      footer: `${action} da ${payload.Account.title} su ${payload.Player.title} da ${payload.Server.title} ${locationText}`,
       footer_icon: payload.Account.thumb
     }]
   }, function(err, response) {
